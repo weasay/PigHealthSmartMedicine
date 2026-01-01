@@ -1,0 +1,18 @@
+1就是那几个ai的依赖需要手动下载.
+22：登录的时候后端没有传递token信息。只传递了是否登录成果数据没传，前端收不到id和token
+@Operation(summary = "账号密码登录")
+@PostMapping("/login")
+public Result<SaTokenInfo> login(@RequestParam String userAccount,
+                                 @RequestParam String password) {
+    userService.login(userAccount, password);   // 仍然校验+StpUtil.login
+    return Result.success(StpUtil.getTokenInfo());
+}
+邮箱登录同样改：
+@Operation(summary = "邮箱密码登录")
+@PostMapping("/emailLogin")
+public Result<SaTokenInfo> emailLogin(@RequestParam String email,
+                                      @RequestParam String password) {
+    userService.emailLogin(email, password);
+    return Result.success(StpUtil.getTokenInfo());
+}
+3
